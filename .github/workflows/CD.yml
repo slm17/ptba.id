@@ -20,7 +20,7 @@ jobs:
 
             - name: Deploy to server
               run: |
-                  ssh -o StrictHostKeyChecking=no root@192.168.1.57 "
+                  ssh -o StrictHostKeyChecking=no dev@192.168.1.57 "
                     cd ~/ptba.id &&
                     git fetch origin main &&
                     git reset --hard origin/main &&
