@@ -1,4 +1,4 @@
-name: CD Pipeline
+name: CD
 
 on:
     push:
@@ -7,23 +7,19 @@ on:
 
 jobs:
     deploy:
-        runs-on: ubuntu-latest
+        runs-on: self-hosted # Gunakan self-hosted runner
 
         steps:
             - name: Checkout code
               uses: actions/checkout@v3
 
-            - name: Set up SSH access
-              uses: webfactory/ssh-agent@v0.7.0
-              with:
-                  ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-            - name: Deploy to server
+            - name: Install dependencies
               run: |
-                  ssh -o StrictHostKeyChecking=no dev@192.168.1.57 "
-                    cd ~/ptba.id &&
-                    git fetch origin main &&
-                    git reset --hard origin/main &&
-                    npm install &&
-                    pm2 restart ptba.id
-                  "
+                  cd ~/ptba.id
+                  git fetch origin main
+                  git reset --hard origin/main
+                  npm install
+
+            - name: Restart application
+              run: |
+                  pm2 restart ptba.id
