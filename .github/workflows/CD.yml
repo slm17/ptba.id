@@ -21,9 +21,9 @@ jobs:
             - name: Deploy to server
               run: |
                   ssh -o StrictHostKeyChecking=no root@192.168.1.57 "
-                    cd /var/www/project-folder &&
+                    cd ~/ptba.id &&
                     git fetch origin main &&
                     git reset --hard origin/main &&
                     npm install &&
-                    pm2 restart your-app-name
+                    pm2 restart ptba.id
                   "
